@@ -1,0 +1,14 @@
+I downloaded 5 department data.
+CREATE EXTERNAL TABLE chicago (fullname String, title String, department String, fullorpart String, salaryorhourly String, typicalhours INT, salary FLOAT,hourlyRate FLOAT) ROW FORMAT SERDE "org.apache.hadoop.hive.serde2.OpenCSVSerde" WITH SERDEPROPERTIES ("separatorChar" = "," , "escapeChar" = "$") Stored as TextFile;
+
+LOAD DATA LOCAL INPATH '/home/cloudera/Desktop/Lab6/Current_Employee_Names__Salaries__and_Position_Titles.csv' OVERWRITE INTO TABLE chicago;
+
+1. Average salary of departments and sorted by average.
+SELECT department,AVG(salary) as AVGSALARY FROM chicago GROUP BY department Order by AVGSALARY;
+
+2. Max salary of departments and sorted by department.
+
+SELECT department,Max(salary) as MAXSALARY FROM chicago GROUP BY department;
+
+3. First 10 employee who makes more than 120000 sorted by name.
+SELECT fullname, department, salary FROM chicago where salary>=120000 sort by fullname limit 10;

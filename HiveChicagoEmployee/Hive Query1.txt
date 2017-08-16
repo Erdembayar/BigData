@@ -1,0 +1,48 @@
+SELECT department,AVG(salary) as AVGSALARY FROM chicago GROUP BY department Order by AVGSALARY;
+Query ID = cloudera_20170613202525_423418f7-c1f6-4fea-872d-29129317a4ed
+Total jobs = 2
+Launching Job 1 out of 2
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1497401488279_0005, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1497401488279_0005/
+Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1497401488279_0005
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2017-06-13 20:25:45,877 Stage-1 map = 0%,  reduce = 0%
+2017-06-13 20:26:05,356 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 3.76 sec
+2017-06-13 20:26:30,655 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 7.14 sec
+MapReduce Total cumulative CPU time: 7 seconds 140 msec
+Ended Job = job_1497401488279_0005
+Launching Job 2 out of 2
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1497401488279_0006, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1497401488279_0006/
+Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1497401488279_0006
+Hadoop job information for Stage-2: number of mappers: 1; number of reducers: 1
+2017-06-13 20:26:53,591 Stage-2 map = 0%,  reduce = 0%
+2017-06-13 20:27:09,914 Stage-2 map = 100%,  reduce = 0%, Cumulative CPU 2.13 sec
+2017-06-13 20:27:28,605 Stage-2 map = 100%,  reduce = 100%, Cumulative CPU 5.27 sec
+MapReduce Total cumulative CPU time: 5 seconds 270 msec
+Ended Job = job_1497401488279_0006
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 7.14 sec   HDFS Read: 1261838 HDFS Write: 297 SUCCESS
+Stage-Stage-2: Map: 1  Reduce: 1   Cumulative CPU: 5.27 sec   HDFS Read: 5047 HDFS Write: 146 SUCCESS
+Total MapReduce CPU Time Spent: 12 seconds 410 msec
+OK
+Department	NULL
+OEMC	73153.77822115383
+GENERAL SERVICES	83095.5283902439
+HEALTH	85488.2109375
+POLICE	87836.02534889111
+WATER MGMNT	89894.1118032787
+Time taken: 125.353 seconds, Fetched: 6 row(s)
+

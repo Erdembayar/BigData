@@ -1,0 +1,53 @@
+hive> SELECT fullname, department, salary FROM chicago where salary>=120000 sort by fullname limit 10;
+Query ID = cloudera_20170613212222_f729f48d-62f9-4f83-a78f-fe8e1deace65
+Total jobs = 2
+Launching Job 1 out of 2
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1497401488279_0018, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1497401488279_0018/
+Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1497401488279_0018
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2017-06-13 21:23:09,902 Stage-1 map = 0%,  reduce = 0%
+2017-06-13 21:23:29,375 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 5.3 sec
+2017-06-13 21:23:45,098 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 7.97 sec
+MapReduce Total cumulative CPU time: 7 seconds 970 msec
+Ended Job = job_1497401488279_0018
+Launching Job 2 out of 2
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1497401488279_0019, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1497401488279_0019/
+Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1497401488279_0019
+Hadoop job information for Stage-2: number of mappers: 1; number of reducers: 1
+2017-06-13 21:24:01,840 Stage-2 map = 0%,  reduce = 0%
+2017-06-13 21:24:13,211 Stage-2 map = 100%,  reduce = 0%, Cumulative CPU 1.55 sec
+2017-06-13 21:24:27,815 Stage-2 map = 100%,  reduce = 100%, Cumulative CPU 3.94 sec
+MapReduce Total cumulative CPU time: 3 seconds 940 msec
+Ended Job = job_1497401488279_0019
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 7.97 sec   HDFS Read: 1261293 HDFS Write: 626 SUCCESS
+Stage-Stage-2: Map: 1  Reduce: 1   Cumulative CPU: 3.94 sec   HDFS Read: 5575 HDFS Write: 360 SUCCESS
+Total MapReduce CPU Time Spent: 11 seconds 910 msec
+OK
+AGAR,  BULENT B	WATER MGMNT	125316.00
+ALBARRAN,  FRANK J	OEMC	120432.00
+ALEXANDER,  DANA 	POLICE	170112.00
+AMATI,  MARK A	POLICE	125190.00
+ANDERSON,  KEVIN B	POLICE	136170.00
+ANDREWS,  DENISE 	HEALTH	130596.00
+ANDRUZZI JR,  JOSEPH J	POLICE	125190.00
+ANGARONE,  KENNETH 	POLICE	170112.00
+ARJMAND,  SUSAN B	POLICE	129096.00
+ARTEAGA JR,  ROBERT 	POLICE	125190.00
+Time taken: 96.543 seconds, Fetched: 10 row(s)
+hive> 
+
