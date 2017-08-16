@@ -1,0 +1,3 @@
+(Doc ID 101) [ cherry plum mango radish cherry kiwi ]
+(Doc ID 201) [ plum mango radish plum mango kiwi ]
+(Doc ID 301) [ radish mango cherry plum kiwi mango ]

@@ -1,0 +1,22 @@
+Student ID: 985803 Erdembayar Yondon
+Here is list of files in InvertIndexFiles.zip file.
+1. InvertedIndex.jar
+It's my compiled jar file and it works with below command on my cloudera Hadoop.
+
+hadoop jar Desktop/InvertedIndex.jar InvertedIndex /user/cloudera/inputDocs /user/cloudera/outputDoc
+
+2. inputDocs
+Inside you'll find input text file
+
+3.outputDocs
+It's output folder which I exported from my HDFS.
+
+4. ProofForJarFileOutput.png 
+It shows how it looks on my cloudera HDFS.
+
+5.Screenshot.png
+It shows how Eclipse run looks.
+
+6. Java source files 
+You'll find 3 source java files. If you wish I can show you full project which is uploaded on Sakai DropBox.
+Thank you.

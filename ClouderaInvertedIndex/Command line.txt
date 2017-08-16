@@ -1,0 +1,1 @@
+hadoop jar Desktop/InvertedIndex.jar InvertedIndex /user/cloudera/inputDocs /user/cloudera/outputDoc
