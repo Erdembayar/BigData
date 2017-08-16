@@ -1,0 +1,6 @@
+John,200,sales
+Ody,60,marketing
+Tumee,90,finance
+Bataa,33,sales
+Ariun,22,management
+Erka,900,IT

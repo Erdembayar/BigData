@@ -1,0 +1,47 @@
+--MANAGED table
+create table employees (name STRING, salary FLOAT,department STRING) ROW FORMAT DELIMITED FIELDS TERMINATED BY',' LINES TERMINATED BY '\n';
+--Loading data directly from our local linux
+LOAD DATA LOCAL INPATH '/home/cloudera/Desktop/employees.txt' OVERWRITE INTO TABLE employees;
+
+select * from employees;
+
+--We can check with HUE for imported file in WAREHOUSE folder.
+--http://quickstart.cloudera:8888/filebrowser/view=/user/hive/warehouse/employees
+--Also we can check metadata here:
+--http://quickstart.cloudera:8888/metastore/tables/
+
+drop table employees;
+--Both meta data and folder inside WAREHOUSE are deleted since it's MANAGED.
+
+---------------------------------------------
+--EXTERNAL table
+create external table employees (name STRING, salary FLOAT,department STRING) ROW FORMAT DELIMITED FIELDS TERMINATED BY',' LINES TERMINATED BY '\n';
+
+--upload with HUE to below location employees.txt before. Now data data is not from local linux.
+--It makes copy in HDFS. We have 2 copies. One is /user/cloudera/employees.txt other is /user/hive/warehouse/employees/employees.txt
+LOAD DATA INPATH '/user/cloudera/employees.txt' OVERWRITE INTO TABLE employees;
+
+DESCRIBE employees;
+
+select * from employees;
+
+--We can check with HUE for imported file in WAREHOUSE folder.
+--http://quickstart.cloudera:8888/filebrowser/view=/user/hive/warehouse/employees
+--Also we can check metadata here:
+--http://quickstart.cloudera:8888/metastore/tables/
+
+drop table employees;
+--Only meta data deleted, but /user/hive/warehouse/employees/employees.txt is left.
+
+
+-------------------------------------------------------------------------
+create table employees (name STRING, salary FLOAT,department STRING) ROW FORMAT DELIMITED FIELDS TERMINATED BY',' LINES TERMINATED BY '\n' location '/user/cloudera/cs522';
+
+DESCRIBE EXTENDED employees;
+
+LOAD DATA INPATH '/user/hive/warehouse/employees/employees.txt' OVERWRITE INTO TABLE employees;
+
+INSERT OVERWRITE DIRECTORY '/user/cloudera/cs522' SELECT * FROM employees;
+
+select * from employees;
+
