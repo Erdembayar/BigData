@@ -1,0 +1,55 @@
+--Registering for lib
+REGISTER /usr/lib/pig/piggybank.jar;
+--Loading movies with CSVExcelstorage. 
+movies  = LOAD '/user/cloudera/MovieDataSet/movies.csv' USING org.apache.pig.piggybank.storage.CSVExcelStorage(',', 'NO_MULTILINE', 'UNIX', 'SKIP_INPUT_HEADER') AS (movieId:int, title:chararray, genres:chararray);
+--INDEXOF(string,'character',startIndex) It returns the first occurrence of the give character in the string, searching forward from the given index.
+--Filter by Adventure
+movies = FILTER movies by INDEXOF(genres, 'Adventure',0)!=-1;
+
+-- Create User and filter by gender
+user = LOAD '/user/cloudera/MovieDataSet/users.txt' USING PigStorage('|') AS (userId:int, age:int, gender:chararray, occupation:chararray, zipCode:chararray);
+
+maleUser = FILTER user by gender == 'M';
+
+-- Create Ratings
+ratings = LOAD '/user/cloudera/MovieDataSet/rating.txt' USING PigStorage('\\t') AS (userId:int, movieId:int, rating:int, timestamp);
+
+ratings2= ratings;
+-- Join with user
+--Output: userId, movieId, rating, timestamp, userId, age, gender, occupation, zipCode
+ratings = JOIN ratings by userId, user by userId;
+--Output: userId, movieId,rating.
+ratings = FOREACH ratings Generate $0 as userId,$1 as movieId,$2 as rating;
+
+-- Grouping by movie id. Output: (movieId,{(userId,movieId,rating)}) or (movieId,{(userId,movieId,rating),(userId,movieId,rating)})
+rating_Group = GROUP ratings by movieId;
+--Output: movieId, rating, count
+highestEachMovie = FOREACH rating_Group Generate group as movieId, MAX(ratings.rating) as rating, COUNT(ratings.userId) as total;
+highestEachMovie = ORDER highestEachMovie By rating;
+
+-- Join movies_Gen and Ratings
+--Output movieId, title, genres, movieId, rating, count
+movies_rating= JOIN movies by movieId, highestEachMovie by movieId;
+--Sorting rating highest first descending , then by title alphabeticly  ascending
+movie_rating_Order= ORDER movies_rating by rating DESC, title;
+--Output movieId, title, genre, rating
+movie_rating_Order= FOREACH movie_rating_Order Generate $0 as movieId,$1 as title,$2 as genres,$4 as rating;
+--Top 20
+top20 = LIMIT movie_rating_Order 20;
+--Store to storage.
+Store top20 into 'TOP20_Movie_Rating';
+
+-- Only male programmer
+male_programmers = FILTER maleUser by INDEXOF(occupation, 'programmer',0)!=-1;
+-- All movies watched by male programmer. Output: userId, movieId, rating, timestamp, userId, age, gender, occupation, zipcode
+male_programmer_watched = JOIN ratings2 by userId, male_programmers by userId;
+--Output: userId, movieId, rating
+male_programmer_watched = FOREACH male_programmer_watched  Generate $0 as userId,$1 as movieId,$2 as rating;
+--Output: userId, movieId, rating, movieId, title, genre, rating
+top20_male_programmer_watched = JOIN male_programmer_watched by movieId, top20 by movieId;
+watched_group =  GROUP top20_male_programmer_watched by userId;
+watched_users = foreach watched_group Generate $0 as userId;
+watched_grouped = Group watched_users all;
+cnt = FOREACH watched_grouped GENERATE COUNT(watched_users);
+Store cnt into 'Male_Programmers_CNT';
+
