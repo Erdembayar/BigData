@@ -1,0 +1,9 @@
+CREATE TABLE records (year String, temperature INT, quality INT) ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t';
+
+
+
+LOAD DATA LOCAL INPATH '/home/cloudera/cs522/input/weatherHive.txt' OVERWRITE INTO TABLE records;
+
+
+
+SELECT year, MAX(temperature) FROM records where temperature !=9999 AND quality IN (0,1,4,5) GROUP BY year;
