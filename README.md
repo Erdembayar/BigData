@@ -18,3 +18,5 @@ Apache Spark Framework
 Write Pig scripts and HQL statements to do data analyses
 
 Create HBase tables using HBase shell and Java API
+
+FinalProjectStreamingAnalysis: Count frequency analysis in Twitter and Network stream. 2 different implementations for each.
